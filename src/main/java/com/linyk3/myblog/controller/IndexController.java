@@ -199,6 +199,6 @@ public class IndexController {
             @RequestParam("name") String name, @RequestParam("email") String email,@RequestParam("message") String message){
     	System.out.println("sendmain");
     	System.out.println(name+"\n"+email+"\n"+message);
-        return "law";
+    	return "redirect:/law/";
     }
 }
