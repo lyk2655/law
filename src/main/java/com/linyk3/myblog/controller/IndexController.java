@@ -1,5 +1,8 @@
 package com.linyk3.myblog.controller;
 
+import com.linyk3.myblog.aync.EventModel;
+import com.linyk3.myblog.aync.EventProducer;
+import com.linyk3.myblog.aync.EventType;
 import com.linyk3.myblog.model.*;
 import com.linyk3.myblog.service.ArticleService;
 import com.linyk3.myblog.service.JedisService;
@@ -44,6 +47,9 @@ public class IndexController {
 
     @Autowired
     private JedisService jedisService;
+    
+    @Autowired
+    private EventProducer eventProducer;
 
     @RequestMapping(path = {"/index"})
     public String index(Model model){
@@ -197,8 +203,16 @@ public class IndexController {
     @RequestMapping(path = {"/law/mail"})
     public String sendmail(Model model,HttpServletResponse httpResponse,
             @RequestParam("name") String name, @RequestParam("email") String email,@RequestParam("message") String message){
-    	System.out.println("sendmain");
+    	System.out.println("sendmail");
     	System.out.println(name+"\n"+email+"\n"+message);
+    	eventProducer.fireEvent(new EventModel().setType(EventType.COMMENT)
+                .setActorId(hostHolder.getUser().getId())
+                .setExts("username",hostHolder.getUser().getName())
+                .setExts("email","2639621346@qq.com")
+                .setExts("name", name)
+                .setExts("usermail",email)
+                .setExts("message", message));
+    	
     	return "redirect:/law/";
     }
 }

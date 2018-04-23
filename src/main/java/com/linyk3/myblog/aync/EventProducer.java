@@ -15,6 +15,7 @@ public class EventProducer {
     public void fireEvent(EventModel eventModel){
         String json = JSONObject.toJSONString(eventModel);
         String key = RedisKeyUntil.getEventQueue();
+        System.out.println(key);
         jedisService.lpush(key,json);
     }
 }

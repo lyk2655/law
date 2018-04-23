@@ -25,7 +25,7 @@ public class MailSender implements InitializingBean {
     public boolean sendWithHTMLTemplate(String to, String subject,
                                         String template, Map<String, Object> model) {
         try {
-            String nick = MimeUtility.encodeText("linyk3");
+            String nick = MimeUtility.encodeText("2639621346@qq.com");
             InternetAddress from = new InternetAddress(nick + "<2639621346@qq.com>");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
@@ -36,6 +36,7 @@ public class MailSender implements InitializingBean {
             mimeMessageHelper.setSubject(subject);
             mimeMessageHelper.setText(result, true);
             mailSender.send(mimeMessage);
+            System.out.println(mimeMessage);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,8 +48,11 @@ public class MailSender implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
     	System.out.println("afterPropertiesSet");
         mailSender = new JavaMailSenderImpl();
+       // mailSender.setUsername("zhenyutu@foxmail.com");
+        //mailSender.setPassword("hfwuhgvdetsmfghb");
+        
         mailSender.setUsername("2639621346@qq.com");
-        mailSender.setPassword("linyk2639");
+        mailSender.setPassword("jzdrgvvpsbomeagc");
         mailSender.setHost("smtp.qq.com");
         //mailSender.setHost("smtp.qq.com");
         mailSender.setPort(465);
